@@ -89,10 +89,10 @@ import plotly.express as px
 import streamlit as st
 # df = px.data.gapminder()
 
-T1 = st.sidebar.selectbox(label='Choose a parameter to plot', options=['Nusselt',
+T1 = st.sidebar.selectbox(label='Choose a parameter to plot', options=['Nusselt number',
                                                                        'Heat transfer coefficient',
                                                                        'Rate of Condensation'])
-if T1=='Nusselt':
+if T1=='Nusselt number':
     T1=Nusselt
     col='Nusselt'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
@@ -100,7 +100,7 @@ if T1=='Nusselt':
     fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
     fig.update_layout(
             xaxis_title=col,
-            yaxis_title="Temperature")
+            yaxis_title="Nusselt number")
     st.write(fig)
 elif T1=='Heat transfer coefficient':
     T1=Heat_transfer_coefficient
@@ -111,7 +111,7 @@ elif T1=='Heat transfer coefficient':
     fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
     fig.update_layout(
             xaxis_title=col,
-            yaxis_title="Temperature")
+            yaxis_title="Heat transfer coefficient ((W/m²K))")
     st.write(fig)
 else: 
     T1=Rate_of_Condensation
@@ -121,7 +121,7 @@ else:
     fig = px.bar(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
     fig.update_layout(
         xaxis_title=col,
-        yaxis_title="Temperature")
+        yaxis_title="Rate of Condensation (kg/min)")
     st.write(fig)
 
 

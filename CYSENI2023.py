@@ -62,7 +62,6 @@ e=df.loc[df['Re']==5000][['First_Nusselt', 'Second_Nusselt', 'Third_Nusselt', 'F
 Nusselt = e.T
 Heat_transfer_coefficient = c.T
 Rate_of_Condensation = a.T
-Rate_of_Condensation 
 
 
 # In[9]:

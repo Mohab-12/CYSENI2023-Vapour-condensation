@@ -69,7 +69,6 @@ Rate_of_Condensation
 
 
 import streamlit as st
-# df = px.data.gapminder()
 
 st.write("""
             # Plotting parameters against temperature at `Re = 5000` and `mass fraction  = 20%`
@@ -87,13 +86,13 @@ Nusselt.iloc[-1:].values.ravel()
 
 import plotly.express as px
 import streamlit as st
-# df = px.data.gapminder()
 
 T1 = st.sidebar.selectbox(label='Choose a parameter to plot', options=['Nusselt number',
                                                                        'Heat transfer coefficient',
                                                                        'Rate of Condensation'])
 if T1=='Nusselt number':
     T1=Nusselt
+    st.write(T1)
     col='Nusselt'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
     column_name = T1.columns[T1.eq(T2).any()][0]
@@ -104,6 +103,7 @@ if T1=='Nusselt number':
     st.write(fig)
 elif T1=='Heat transfer coefficient':
     T1=Heat_transfer_coefficient
+    st.write(T1)
     col='Heat transfer coefficient'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
 
@@ -116,6 +116,7 @@ elif T1=='Heat transfer coefficient':
 else: 
     T1=Rate_of_Condensation
     col='Rate of condensation'
+    st.write(T1)
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
     column_name = T1.columns[T1.eq(T2).any()][0]
     fig = px.bar(x = T1.index[:-1], y=T1.iloc[:-1, column_name])

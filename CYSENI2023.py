@@ -91,41 +91,114 @@ T1 = st.sidebar.selectbox(label='Choose a parameter to plot', options=['Nusselt 
                                                                        'Rate of Condensation'])
 if T1=='Nusselt number':
     T1=Nusselt
-    st.write(T1)
     col='Nusselt'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
     column_name = T1.columns[T1.eq(T2).any()][0]
-    fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
+    fig = px.line(x = T1.index[:], y=T1.iloc[:, column_name], markers=True)
     fig.update_layout(
             xaxis_title=col,
             yaxis_title="Nusselt number")
+    fig.update_xaxes(
+    tickvals=[1, 2, 3, 4, 5, 6, 7, 8],
+    ticktext=[1, 2, 3, 4, 5, 6, 7, 8])
     st.write(fig)
 elif T1=='Heat transfer coefficient':
     T1=Heat_transfer_coefficient
-    st.write(T1)
     col='Heat transfer coefficient'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
 
     column_name = T1.columns[T1.eq(T2).any()][0]
-    fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
+    fig = px.line(x = T1.index[:], y=T1.iloc[:, column_name], markers=True)
     fig.update_layout(
             xaxis_title=col,
             yaxis_title="Heat transfer coefficient ((W/m²K))")
+    fig.update_xaxes(
+    tickvals=[1, 2, 3, 4, 5, 6, 7, 8],
+    ticktext=[1, 2, 3, 4, 5, 6, 7, 8])
     st.write(fig)
 else: 
     T1=Rate_of_Condensation
     col='Rate of condensation'
-    st.write(T1)
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
     column_name = T1.columns[T1.eq(T2).any()][0]
-    fig = px.bar(x = T1.index[:-1], y=T1.iloc[:-1, column_name])
+    # Assuming your DataFrame is called df
+    # Select the first eight rows
+    df_selected = Rate_of_Condensation.iloc[:8]
+
+    # Reset the index
+    df_selected.reset_index(drop=True, inplace=True)
+
+    # Create a new column to group the rows in pairs
+    df_selected['group'] = (df_selected.index // 2) + 1
+
+    # Group by the 'group' column and sum the values of each group
+    df_summed = df_selected.groupby('group').sum()
+
+    # Reset the index to get the final result with four rows
+    df_summed.reset_index(drop=True, inplace=True)
+
+    # Create a new column to group the rows in pairs
+    df_selected['group'] = (df_selected.index // 2) + 1
+
+    # Group by the 'group' column and sum the values of each group
+    df_summed = df_selected.groupby('group').sum()
+
+    # Reset the index to get the final result with four rows
+    df_summed.reset_index(drop=True, inplace=True)
+ 
+    fig = px.bar(x = [1,2,3,4], y=df_summed.iloc[:, column_name])
     fig.update_layout(
         xaxis_title=col,
         yaxis_title="Rate of Condensation (kg/min)")
+    fig.update_xaxes(
+    tickvals=[1, 2, 3, 4],
+    ticktext=[1, 2, 3, 4])
     st.write(fig)
 
 
 # In[ ]:
+check1 = st.checkbox('Click here for temperature profile')
+
+if check1==True:
+    Temperature_of_mixture = [113.8721369,
+                              107.6319682,
+                              103.665735, 
+                              98.40364976,
+                              96.73604539,
+                              91.28107915,
+                              88.70575529,
+                              83.74964505]
+
+    Temperature_of_cooling_water = [29.6592803,
+                                    28.01903525,
+                                    26.14824476,
+                                    24.0725242,
+                                    21.81748892,
+                                    19.4087543,
+                                    16.87193569,
+                                    14.23264846]
+
+    fig = px.line(x=[1, 2, 3, 4, 5, 6, 7, 8], y=[Temperature_of_mixture, Temperature_of_cooling_water],
+                  color_discrete_sequence=['blue', 'green'], markers=True)
+    fig.update_layout(
+            xaxis_title='Local points',
+            yaxis_title="Temperatures (C)",
+            showlegend=True)
+
+    fig.data[0].name = 'Mixture Temperature'
+    fig.data[1].name = 'Cooling Water Temperature'
+
+    st.write(fig)
+    
+    
+    
+check2 = st.checkbox('Click here for Condensation efficiecny')
+
+if check2==True:
+    df['Condensation efficiecny'].fillna(0, inplace=True)
+    fig = px.scatter(df, x='Mixture tin, oC', y='Condensation efficiecny', color='Condensation efficiecny',
+                 size='Condensation efficiecny')
+    st.write(fig)
 
 
 

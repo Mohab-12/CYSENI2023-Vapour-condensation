@@ -193,8 +193,6 @@ if check1==True:
 
     st.write(fig)
     
-    
-    
 check2 = st.checkbox('Click here for Condensation efficiecny')
 
 if check2==True:
@@ -202,23 +200,3 @@ if check2==True:
     fig = px.scatter(df, x='Mixture tin, oC', y='Condensation efficiecny', color='Condensation efficiecny',
                  size='Condensation efficiecny')
     st.write(fig)
-    
-    
-    
-check2 = st.checkbox('Click here for Condensation efficiecny')
-
-if check2==True:
-    df['Condensation efficiecny'].fillna(0, inplace=True)
-    fig = px.scatter(df, x='Mixture tin, oC', y='Condensation efficiecny', color='Condensation efficiecny',
-                 size='Condensation efficiecny')
-    st.write(fig)
-
-
-
-
-
-# In[ ]:
-
-
-
-

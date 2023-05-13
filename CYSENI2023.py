@@ -94,12 +94,12 @@ if T1=='Nusselt number':
     col='Nusselt'
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
     column_name = T1.columns[T1.eq(T2).any()][0]
-    fig = px.line(x = T1.index[:], y=T1.iloc[:, column_name], markers=True)
+    fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name], markers=True)
     fig.update_layout(
             xaxis_title=col,
             yaxis_title="Nusselt number")
     fig.update_xaxes(
-    tickvals=[1, 2, 3, 4, 5, 6, 7, 8],
+    tickvals=[0,1, 2, 3, 4, 5, 6, 7,],
     ticktext=[1, 2, 3, 4, 5, 6, 7, 8])
     st.write(fig)
 elif T1=='Heat transfer coefficient':
@@ -108,12 +108,12 @@ elif T1=='Heat transfer coefficient':
     T2 = st.sidebar.selectbox(label='Choose your Temperature', options=T1.iloc[-1:].values.ravel())
 
     column_name = T1.columns[T1.eq(T2).any()][0]
-    fig = px.line(x = T1.index[:], y=T1.iloc[:, column_name], markers=True)
+    fig = px.line(x = T1.index[:-1], y=T1.iloc[:-1, column_name], markers=True)
     fig.update_layout(
             xaxis_title=col,
             yaxis_title="Heat transfer coefficient ((W/m²K))")
     fig.update_xaxes(
-    tickvals=[1, 2, 3, 4, 5, 6, 7, 8],
+    tickvals=[0,1, 2, 3, 4, 5, 6, 7],
     ticktext=[1, 2, 3, 4, 5, 6, 7, 8])
     st.write(fig)
 else: 
@@ -184,10 +184,23 @@ if check1==True:
             xaxis_title='Local points',
             yaxis_title="Temperatures (C)",
             showlegend=True)
+    fig.update_xaxes(
+    tickvals=[1, 2, 3, 4, 5, 6, 7, 8],
+    ticktext=[1, 2, 3, 4, 5, 6, 7, 8])
 
     fig.data[0].name = 'Mixture Temperature'
     fig.data[1].name = 'Cooling Water Temperature'
 
+    st.write(fig)
+    
+    
+    
+check2 = st.checkbox('Click here for Condensation efficiecny')
+
+if check2==True:
+    df['Condensation efficiecny'].fillna(0, inplace=True)
+    fig = px.scatter(df, x='Mixture tin, oC', y='Condensation efficiecny', color='Condensation efficiecny',
+                 size='Condensation efficiecny')
     st.write(fig)
     
     

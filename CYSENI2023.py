@@ -71,7 +71,7 @@ import streamlit as st
 
 st.write("""
             # Plotting parameters against temperature at  
-            ##`Re = 5000` and `mass fraction = 20%`
+            ## `Re = 5000` and `mass fraction = 20%`
             """)
 
 

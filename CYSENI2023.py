@@ -192,32 +192,32 @@ if check1==True:
     fig.data[0].name = 'Mixture Temperature'
     fig.data[1].name = 'Cooling Water Temperature'
 
-    triangle_vertices1 = [(4.8, np.median(Temperature_of_mixture)),
-                            (4.6,np.median(Temperature_of_mixture)+2),
-                            (4.6,np.median(Temperature_of_mixture)-2)]
+triangle_vertices1 = [(4.8, np.median(Temperature_of_mixture)),
+                         (4.6,np.median(Temperature_of_mixture)+2),
+                         (4.6,np.median(Temperature_of_mixture)-2)]
 
     triangle_vertices2 = [(4.5, np.median(Temperature_of_cooling_water)),
-                            (4.8,np.median(Temperature_of_cooling_water)+1),
-                            (4.8,np.median(Temperature_of_cooling_water)-2)]
+                         (4.8,np.median(Temperature_of_cooling_water)+1),
+                         (4.8,np.median(Temperature_of_cooling_water)-2)]
 
     shape1 = go.layout.Shape(
-           type='path',
-           path=f'M {triangle_vertices1[0][0]} {triangle_vertices1[0][1]} L {triangle_vertices1[1][0]} {triangle_vertices1[1][1]} '
-                f'L {triangle_vertices1[2][0]} {triangle_vertices1[2][1]} Z',
-           fillcolor='blue',
-           opacity=0.5,
-           line=dict(width=0)
-       )
+        type='path',
+        path=f'M {triangle_vertices1[0][0]} {triangle_vertices1[0][1]} L {triangle_vertices1[1][0]} {triangle_vertices1[1][1]} '
+             f'L {triangle_vertices1[2][0]} {triangle_vertices1[2][1]} Z',
+        fillcolor='blue',
+        opacity=0.5,
+        line=dict(width=0)
+    )
 
     # Create a shape for the second triangle
     shape2 = go.layout.Shape(
-           type='path',
-           path=f'M {triangle_vertices2[0][0]} {triangle_vertices2[0][1]} L {triangle_vertices2[1][0]} {triangle_vertices2[1][1]} '
-                f'L {triangle_vertices2[2][0]} {triangle_vertices2[2][1]} Z',
-           fillcolor='green',
-           opacity=0.5,
-           line=dict(width=0)
-       )
+        type='path',
+        path=f'M {triangle_vertices2[0][0]} {triangle_vertices2[0][1]} L {triangle_vertices2[1][0]} {triangle_vertices2[1][1]} '
+             f'L {triangle_vertices2[2][0]} {triangle_vertices2[2][1]} Z',
+        fillcolor='green',
+        opacity=0.5,
+        line=dict(width=0)
+    )
 
     # Add the shapes to the layout
     fig.update_layout(shapes=[shape1, shape2])

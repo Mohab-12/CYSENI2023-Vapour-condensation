@@ -150,7 +150,7 @@ else:
     # Reset the index to get the final result with four rows
     df_summed.reset_index(drop=True, inplace=True)
  
-    fig = px.bar(x = [1,2,3,4], y=df_summed.iloc[:, column_name])
+    fig = px.bar(x = [1,2,3,4], y=df_summed.iloc[:, column_name]*3)
     fig.update_layout(
         xaxis_title=col,
         yaxis_title="Rate of Condensation (g/min)")

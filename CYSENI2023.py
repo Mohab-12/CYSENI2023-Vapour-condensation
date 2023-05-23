@@ -153,7 +153,7 @@ else:
     fig = px.bar(x = [1,2,3,4], y=(df_summed.iloc[:, column_name]*3)/1000)
     fig.update_layout(
         xaxis_title=col,
-        yaxis_title="Rate of Condensation (g/min)")
+        yaxis_title="Rate of Condensation (Kg/min)")
     fig.update_xaxes(
     tickvals=[1, 2, 3, 4],
     ticktext=[1, 2, 3, 4])
